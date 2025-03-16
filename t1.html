@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T1 - Tabela e Formulário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        input {
+            padding: 5px;
+        }
+        button {
+            padding: 5px 10px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tabela e Formulário em Execução</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Turma</th>
+                <th>Sala</th>
+                <th>Nota 1º Trim.</th>
+                <th>Nota 2º Trim.</th>
+                <th>Nota 3º Trim.</th>
+                <th>Média</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaEstudantes"></tbody>
+    </table>
+
+    <form id="formEstudante">
+        <input type="number" id="id" placeholder="ID" required>
+        <input type="text" id="nome" placeholder="Nome" required>
+        <input type="text" id="turma" placeholder="Turma" required>
+        <input type="text" id="sala" placeholder="Sala" required>
+        <input type="number" id="nota1" placeholder="Nota 1º Trim." required>
+        <input type="number" id="nota2" placeholder="Nota 2º Trim." required>
+        <input type="number" id="nota3" placeholder="Nota 3º Trim." required>
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <p><a href="index.html">Voltar à Página Inicial</a></p>
+
+    <script>
+        document.getElementById("formEstudante").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let id = document.getElementById("id").value;
+            let nome = document.getElementById("nome").value;
+            let turma = document.getElementById("turma").value;
+            let sala = document.getElementById("sala").value;
+            let nota1 = parseFloat(document.getElementById("nota1").value);
+            let nota2 = parseFloat(document.getElementById("nota2").value);
+            let nota3 = parseFloat(document.getElementById("nota3").value);
+            let media = ((nota1 + nota2 + nota3) / 3).toFixed(2);
+            let status = media >= 10 ? "Aprovado" : "Reprovado";
+
+            let tabela = document.getElementById("tabelaEstudantes");
+            let novaLinha = tabela.insertRow();
+            novaLinha.innerHTML = `
+                <td>${id}</td>
+                <td>${nome}</td>
+                <td>${turma}</td>
+                <td>${sala}</td>
+                <td>${nota1}</td>
+                <td>${nota2}</td>
+                <td>${nota3}</td>
+                <td>${media}</td>
+                <td>${status}</td>
+            `;
+
+            document.getElementById("formEstudante").reset();
+        });
+    </script>
+</body>
+</html>
